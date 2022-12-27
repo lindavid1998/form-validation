@@ -4,6 +4,12 @@ const inputFields = document.querySelectorAll('input');
 inputFields.forEach(element => element.addEventListener('blur', validate));
 
 document.getElementById('country').addEventListener('change', checkZip);
+document.getElementById('password').addEventListener('input', checkPassword)
+
+document.querySelector('.submit-btn').addEventListener('click', () => {
+    checkPasswordMatch()
+    document.querySelector('.form').reportValidity();
+});
 
 function validate() {
     error = this.nextElementSibling;
@@ -34,61 +40,55 @@ function validate() {
 }
 
 function checkZip() {
-    // read zip input
     const zip = document.getElementById('zip')
-    
-    // read country value
     const country = document.getElementById('country').value;
 
-    // look up associated regex
     const constraints = {
         us: [/^\d{5}$/, 'US zip codes must contain 5 digits'],
         fr: [/^\d{5}$/, 'France zip codes must contain 5 digits'],
         sw: [/^\d{4}$/, 'Swiss zip codes must contain 4 digits']
     }
 
+    const regex = constraints[country][0];
+    const errorMsg = constraints[country][1];
+
     // set error message
     error = zip.nextElementSibling;
-    if (constraints[country][0].test(zip.value)) {
+    if (regex.test(zip.value)) {
         error.textContent = ''
         zip.style.border = ''
+        zip.setCustomValidity("")
     } else {
-        error.textContent = constraints[country][1];
+        error.textContent = errorMsg;
         zip.style.border = '1px solid red';
+        zip.setCustomValidity(errorMsg);
     }
-
 }
 
 function checkPasswordMatch() {
-    // read confirm pw field
+    const password = document.getElementById('password');
     const confirm = document.getElementById('confirm-pw');
     
-    // read pw field
-    const password = document.getElementById('password');
-
     error = confirm.nextElementSibling
     if (confirm.value !== password.value) {
         error.textContent = 'Passwords do not match';
         confirm.style.border = '1px solid red';
+        confirm.setCustomValidity("Passwords do not match"); // sets validity to false
     } else {
         error.textContent = '';
         confirm.style.border = '';
+        confirm.setCustomValidity(""); // sets validity to true
     }
 }
 
-
-document.getElementById('password').addEventListener('input', checkPassword)
-
 function checkPassword() {
     // clear error styling
-    document.querySelectorAll('.requirements li').forEach(
-        element => element.style.color = ''
-    )
+    document.querySelectorAll('.requirements li').forEach(element => {
+        element.style.color = ''
+    })
     
-    // read input
+    // apply styling based on whether conditions are met
     let input = this.value;
-
-    // check each condition and apply styling
     let reqs = document.querySelector('.requirements')
     if (/.{8,}/.test(input)) {
         reqs.querySelector('#char-limit').style.color = 'green'
