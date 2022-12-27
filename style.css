@@ -6,9 +6,8 @@
     padding: 0;
 }
 
-input, textarea {
-    outline: 0;
-    appearance: none;
+input, textarea, select {
+    outline: none;
 }
 
 .content {
@@ -17,7 +16,7 @@ input, textarea {
 
 .form {
     display: grid;
-    grid-template-rows: repeat(3, 80px);
+    grid-template-rows: repeat(3, 100px);
     grid-template-columns: 1fr 1fr;
     width: 900px;
     margin-top: 10px;
@@ -34,7 +33,7 @@ label {
     font-size: 0.9rem;
 }
 
-p, .required {
+p, .required, .error {
     color: red;
     position: relative;
     font-size: 0.9rem;
@@ -65,4 +64,9 @@ button {
 
 button:hover {
     background-color: #b52927;
+}
+
+.error {
+    width: 400px;
+    font-size: 0.7rem;
 }
