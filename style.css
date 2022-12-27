@@ -1,0 +1,42 @@
+* {
+    font-family:Arial, Helvetica, sans-serif
+}
+
+input, textarea {
+    outline: 0;
+    appearance: none;
+}
+
+.form {
+    display: grid;
+    grid-template-rows: repeat(3, 80px);
+    grid-template-columns: 1fr 1fr;
+    width: 900px;
+    padding: 10px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    gap: 5px;
+}
+
+label {
+    font-size: 0.8rem;
+}
+
+.required {
+    color: red;
+    position: relative;
+    right: 3px;
+}
+
+input, select {
+    border: 1px solid rgb(135, 135, 135);
+    padding: 5px;
+}
+
+input:focus, select:focus {
+    border: 1px solid rgb(58, 58, 58);
+}
