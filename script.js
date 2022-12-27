@@ -25,7 +25,7 @@ function validate() {
         checkPasswordMatch()
         return
     } else if (this.validity.patternMismatch) {
-        error.textContent = 'Password must be 8 characters long and contain 1 upper, 1 lower, and 1 number'
+        error.textContent = 'Password does not satisfy the below requirements'
     } else {
         error.textContent = 'Format: xxx@email.com'
     }
@@ -73,5 +73,36 @@ function checkPasswordMatch() {
     } else {
         error.textContent = '';
         confirm.style.border = '';
+    }
+}
+
+
+document.getElementById('password').addEventListener('input', checkPassword)
+
+function checkPassword() {
+    // clear error styling
+    document.querySelectorAll('.requirements li').forEach(
+        element => element.style.color = ''
+    )
+    
+    // read input
+    let input = this.value;
+
+    // check each condition and apply styling
+    let reqs = document.querySelector('.requirements')
+    if (/.{8,}/.test(input)) {
+        reqs.querySelector('#char-limit').style.color = 'green'
+    }
+
+    if (/^(?=.*[a-z]).*$/.test(input)) {
+        reqs.querySelector('#lowercase').style.color = 'green'
+    }
+
+    if (/^(?=.*[A-Z]).*$/.test(input)) {
+        reqs.querySelector('#uppercase').style.color = 'green'
+    }
+
+    if (/^(?=.*\d).*$/.test(input)) {
+        reqs.querySelector('#number').style.color = 'green'
     }
 }

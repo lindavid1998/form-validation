@@ -33,7 +33,9 @@ label {
     font-size: 0.9rem;
 }
 
-p, .required, .error {
+.form-instructions,
+.required,
+.error {
     color: red;
     position: relative;
     font-size: 0.9rem;
@@ -69,4 +71,22 @@ button:hover {
 .error {
     width: 400px;
     font-size: 0.7rem;
+}
+
+.password-feedback {
+    width: 50%;
+    font-size: 0.8rem;
+    position: relative;
+    bottom: 15px;
+}
+
+.password-feedback ul {
+    position: relative;
+    left: 20px;
+}
+
+.requirements li {
+    color: red;
+    line-height: 1.3;
+    margin-top: 5px;
 }
